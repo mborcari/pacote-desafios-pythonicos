@@ -12,8 +12,11 @@ Retorne o resultado da string.
 
 def verbing(s):
     # +++ SUA SOLUÇÃO +++
-    return
-
+    verb = 'ing'
+    adverb = "ly"
+    if len(s) > 3:
+        s = "".join([s, adverb]) if s.endswith(verb) else "".join([s, verb])
+    return s
 
 # --- Daqui para baixo são apenas códigos auxiliáries de teste. ---
 

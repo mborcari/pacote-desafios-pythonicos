@@ -14,8 +14,18 @@ Assuma que a e b tem tamanho 2 ou maior.
 
 def mix_up(a, b):
     # +++ SUA SOLUÇÃO +++
-    return
+    return "".join((f'{b[:2]}{a[2:]}' if len(a) > 2 else "String menor que 2",
+                    " ",
+                    f'{a[:2]}{b[2:]}' if len(b) > 2 else "String menor que 2"))
 
+    """
+    alternativa usando replace
+    return "".join(
+                    (a[:2].replace(a[:2], b[:2]) + a[2:] if len(a) > 2 else "String menor que 2",
+                     " ",
+                    b[:2].replace(b[:2], a[:2]) + b[2:] if len(b) > 2 else "String menor que 2")
+            )
+    """
 
 # --- Daqui para baixo são apenas códigos auxiliáries de teste. ---
 
@@ -42,3 +52,4 @@ if __name__ == '__main__':
     test(mix_up, ('dog', 'dinner'), 'dig donner')
     test(mix_up, ('gnash', 'sport'), 'spash gnort')
     test(mix_up, ('pezzy', 'firm'), 'fizzy perm')
+    test(mix_up, ('pe', 'fi'), 'String menor que 2 String menor que 2')
