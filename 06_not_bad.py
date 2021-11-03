@@ -10,8 +10,12 @@ Exemplo: 'The dinner is not that bad!' retorna 'The dinner is good!'
 """
 
 def not_bad(s):
-    # +++ SUA SOLUÇÃO +++
-    return
+    import re
+    patters_not_bat = re.compile("not.*bad")
+    if "bad" in s and "not" in s:
+        if s.index("bad") > s.index("not"):
+            s = re.sub(patters_not_bat, "good", s)
+    return s
 
 
 # --- Daqui para baixo são apenas códigos auxiliáries de teste. ---

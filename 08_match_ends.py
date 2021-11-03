@@ -9,8 +9,8 @@ PS: Python não possui o operador ++, porém += funciona.
 """
 
 def match_ends(words):
-    # +++ SUA SOLUÇÃO +++
-    return
+    final_list = [1 for word in words if len(word) >= 2 and word[0] == word[-1]]
+    return sum(final_list)
 
 
 # --- Daqui para baixo são apenas códigos auxiliáries de teste. ---

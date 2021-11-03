@@ -11,11 +11,13 @@ Finalmente, dadas duas strings a e b, retorne uma string na forma:
 a-frente + b-frente + a-trás + b-trás
 """
 def front_back(a, b):
-    # +++ SUA SOLUÇÃO +++
-    return
-
+    divisor_a = divisor_string(a)
+    divisor_b = divisor_string(b)
+    return f'{a[:divisor_a]}{b[:divisor_b]}{a[divisor_a:]}{b[divisor_b:]}'
 
 # --- Daqui para baixo são apenas códigos auxiliáries de teste. ---
+def divisor_string(s):
+    return int(len(s) / 2) if len(s) % 2 == 0 else int(len(s) / 2) + 1
 
 def test(f, in_, expected):
     """
