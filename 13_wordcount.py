@@ -63,7 +63,7 @@ def print_words(filename):
 
 def print_top(filename):
     for word, count in sorted(count_words(filename, 20).items(), key=lambda kv: kv[1], reverse=True):
-        print(word, count)
+        print(f'{word} : {count}')
 
 def count_words(filename, slice=-1):
     stopwords = [" ", "\n", "\t", ".", ",", ";"]
