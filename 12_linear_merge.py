@@ -10,9 +10,13 @@ A sua solução deve rodar em tempo linear, ou seja, deve fazer uma
 """
 
 def linear_merge(list1, list2):
-    # +++ SUA SOLUÇÃO +++
-    return
-
+    temp_list = []
+    while list1 or list2:
+        if (list1[-1:] > list2[-1:]):
+            temp_list.insert(0, list1.pop(-1))
+        else:
+            temp_list.insert(0, list2.pop(-1))
+    return temp_list
 
 # --- Daqui para baixo são apenas códigos auxiliáries de teste. ---
 

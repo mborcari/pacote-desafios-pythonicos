@@ -52,10 +52,23 @@ e conferindo cada etapa do seu progresso.
 """
 
 import sys
-
+from collections import Counter
 
 # +++ SUA SOLUÇÃO +++
 # Defina as funções print_words(filename) e print_top(filename).
+
+def print_words(filename):
+    for word, count in count_words(filename).items():
+        print(f'{word} : {count}')
+
+def print_top(filename):
+    for word, count in sorted(count_words(filename, 20).items(), key=lambda kv: kv[1], reverse=True):
+        print(word, count)
+
+def count_words(filename, slice=-1):
+    stopwords = [" ", "\n", "\t", ".", ",", ";"]
+    with open(filename) as f:
+        return Counter([word.lower() for word in f.read() if word not in stopwords][:slice])
 
 
 # A função abaixo chama print_words() ou print_top() de acordo com os
