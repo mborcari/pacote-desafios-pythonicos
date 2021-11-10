@@ -43,15 +43,12 @@ import random
 import sys
 from collections import defaultdict
 
-def get_tuple_words(line):
-    return list(zip(line[:-2], line[1:]))
-
 def clear_words(word):
     return word.lower().replace("\n", "").replace("''", "").replace(".", "")
 
 def file_to_list(filename):
     with open(filename) as f:
-        lista_words = f.read().split(" ")
+        lista_words = f.read().lower().split(" ")
         # aplica padrão nos textos, limpado quebra de linha e colocando em minusculo
         lista_words = list(map(lambda word: clear_words(word), lista_words))
     return lista_words
@@ -61,12 +58,11 @@ def mimic_dict(filename):
     mimic_list = file_to_list(filename)
     first_word, last_word = mimic_list[0], mimic_list[-1]
     mimic_list = mimic_list[1:-2]
-    mimic_tuple = get_tuple_words(mimic_list)
+    mimic_tuple = list(zip(mimic_list, mimic_list[1:]))
     for k, v in mimic_tuple:
         if v not in d[k]:
             d[k].append(v)
-    d[""] = first_word
-    d[last_word] = ""
+    d[""], d[last_word] = first_word, ""
     return d
 
 def print_mimic(mimic_dict, word):
@@ -76,21 +72,21 @@ def print_mimic(mimic_dict, word):
     count_text = 0
     capitalize_next_word = False
     word_init = word
-    while count_text <= 200:
+    for count in range(200):
         lista_word = mimic_dict[word]
-        print(f'Lista da palavra {word}: {lista_word}')
+        #trata listas vazias
         if lista_word != [''] and lista_word:
             word = random.choice(lista_word)
         else:
             word = word_init
-        print("Palavra escolhida na lista", word)
+        # Capitaliza primeira palavra após ponto final.
         texto += f' {word.capitalize()}' if capitalize_next_word else f' {word}'
-        if count_text % 20 == 0:
+        # a cada 20 paalvras, coloca um ponto final
+        if count % 20 == 0:
             texto += "."
             capitalize_next_word = True
         else:
             capitalize_next_word = False
-        count_text += 1
     print(texto)
 
 
