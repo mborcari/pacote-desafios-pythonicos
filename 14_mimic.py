@@ -48,46 +48,45 @@ def clear_words(word):
 
 def file_to_list(filename):
     with open(filename) as f:
-        lista_words = f.read().lower().split(" ")
+        list_words = f.read().lower().split(" ")
         # aplica padrão nos textos, limpado quebra de linha e colocando em minusculo
-        lista_words = list(map(lambda word: clear_words(word), lista_words))
-    return lista_words
+        list_words = list(map(lambda word: clear_words(word), list_words))
+    return list_words
 
 def mimic_dict(filename):
-    d = defaultdict(list)
+    mimic_dict = defaultdict(list)
     mimic_list = file_to_list(filename)
     first_word, last_word = mimic_list[0], mimic_list[-1]
     mimic_list = mimic_list[1:-2]
     mimic_tuple = list(zip(mimic_list, mimic_list[1:]))
     for k, v in mimic_tuple:
-        if v not in d[k]:
-            d[k].append(v)
-    d[""], d[last_word] = first_word, ""
-    return d
+        if v not in mimic_dict[k]:
+            mimic_dict[k].append(v)
+    mimic_dict[""], mimic_dict[last_word] = first_word, ""
+    return mimic_dict
 
 def print_mimic(mimic_dict, word):
     """Dado o dicionario imitador e a palavra inicial, imprime texto de 200 palavras."""
     # +++ SUA SOLUÇÃO +++
-    texto = word.capitalize()
-    count_text = 0
+    new_text = word.capitalize()
     capitalize_next_word = False
     word_init = word
     for count in range(200):
-        lista_word = mimic_dict[word]
+        list_words = mimic_dict[word]
         #trata listas vazias
-        if lista_word != [''] and lista_word:
-            word = random.choice(lista_word)
+        if list_words != [''] and list_words:
+            word = random.choice(list_words)
         else:
             word = word_init
         # Capitaliza primeira palavra após ponto final.
-        texto += f' {word.capitalize()}' if capitalize_next_word else f' {word}'
-        # a cada 20 paalvras, coloca um ponto final
+        new_text += f' {word.capitalize()}' if capitalize_next_word else f' {word}'
+        # a cada 20 palavras, coloca um ponto final
         if count % 20 == 0:
-            texto += "."
+            new_text += "."
             capitalize_next_word = True
         else:
             capitalize_next_word = False
-    print(texto)
+    print(new_text)
 
 
 # Chama mimic_dict() e print_mimic()
