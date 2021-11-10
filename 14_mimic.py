@@ -41,29 +41,69 @@ método que escolhe um elemento aleatório de uma lista não vazia.
 
 import random
 import sys
+from collections import defaultdict
 
+def get_tuple_words(line):
+    return list(zip(line[:-2], line[1:]))
+
+def clear_words(word):
+    return word.lower().replace("\n", "").replace("''", "").replace(".", "")
+
+def file_to_list(filename):
+    with open(filename) as f:
+        lista_words = f.read().split(" ")
+        # aplica padrão nos textos, limpado quebra de linha e colocando em minusculo
+        lista_words = list(map(lambda word: clear_words(word), lista_words))
+    return lista_words
 
 def mimic_dict(filename):
-  """Retorna o dicionario imitador mapeando cada palavra para a lista de
-  palavras subsequentes."""
-    # +++ SUA SOLUÇÃO +++
-  return
-
+    d = defaultdict(list)
+    mimic_list = file_to_list(filename)
+    first_word, last_word = mimic_list[0], mimic_list[-1]
+    mimic_list = mimic_list[1:-2]
+    mimic_tuple = get_tuple_words(mimic_list)
+    for k, v in mimic_tuple:
+        if v not in d[k]:
+            d[k].append(v)
+    d[""] = first_word
+    d[last_word] = ""
+    return d
 
 def print_mimic(mimic_dict, word):
-  """Dado o dicionario imitador e a palavra inicial, imprime texto de 200 palavras."""
+    """Dado o dicionario imitador e a palavra inicial, imprime texto de 200 palavras."""
     # +++ SUA SOLUÇÃO +++
-  return
+    texto = word.capitalize()
+    count_text = 0
+    capitalize_next_word = False
+    word_init = word
+    while count_text <= 200:
+        lista_word = mimic_dict[word]
+        print(f'Lista da palavra {word}: {lista_word}')
+        if lista_word != [''] and lista_word:
+            word = random.choice(lista_word)
+        else:
+            word = word_init
+        print("Palavra escolhida na lista", word)
+        texto += f' {word.capitalize()}' if capitalize_next_word else f' {word}'
+        if count_text % 20 == 0:
+            texto += "."
+            capitalize_next_word = True
+        else:
+            capitalize_next_word = False
+        count_text += 1
+    print(texto)
 
 
 # Chama mimic_dict() e print_mimic()
 def main():
-  if len(sys.argv) != 2:
-    print('Utilização: ./14_mimic.py file-to-read')
-    sys.exit(1)
+    for a in sys.argv:
+       print(a)
+    if len(sys.argv) != 2:
+        print('Utilização: ./14_mimic.py file-to-read')
+        sys.exit(1)
 
-  dict = mimic_dict(sys.argv[1])
-  print_mimic(dict, '')
+    dict = mimic_dict(sys.argv[1])
+    print_mimic(dict, 'we')
 
 
 if __name__ == '__main__':

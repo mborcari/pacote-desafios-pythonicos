@@ -1,4 +1,8 @@
-from collections import Counter
-with open("letras.txt") as f:
-        contador = Counter([word.upper() for word in f.read() if word !=' ' and word != '\n'])
-        print(contador, type(contador))
+from collections import defaultdict
+
+lista = ['']
+
+if [''] == lista:
+        print(1)
+else:
+        print(2)
