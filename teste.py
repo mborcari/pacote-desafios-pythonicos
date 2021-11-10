@@ -1,8 +1,2 @@
-from collections import defaultdict
-
-lista = ['']
-
-if [''] == lista:
-        print(1)
-else:
-        print(2)
+with open("alice.txt") as f:
+    print(f.read().split())

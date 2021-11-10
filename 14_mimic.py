@@ -43,31 +43,24 @@ import random
 import sys
 from collections import defaultdict
 
-def clear_words(word):
-    return word.lower().replace("\n", "").replace("''", "").replace(".", "")
-
 def file_to_list(filename):
     with open(filename) as f:
-        list_words = f.read().lower().split(" ")
-        # aplica padrão nos textos, limpado quebra de linha e colocando em minusculo
-        list_words = list(map(lambda word: clear_words(word), list_words))
+        list_words = f.read().lower().split()
     return list_words
 
 def mimic_dict(filename):
-    mimic_dict = defaultdict(list)
+    mimic_d = defaultdict(list)
     mimic_list = file_to_list(filename)
     first_word, last_word = mimic_list[0], mimic_list[-1]
     mimic_list = mimic_list[1:-2]
     mimic_tuple = list(zip(mimic_list, mimic_list[1:]))
     for k, v in mimic_tuple:
-        if v not in mimic_dict[k]:
-            mimic_dict[k].append(v)
-    mimic_dict[""], mimic_dict[last_word] = first_word, ""
-    return mimic_dict
+        if v not in mimic_d[k]:
+            mimic_d[k].append(v)
+    mimic_d[""], mimic_d[last_word] = first_word, ""
+    return mimic_d
 
 def print_mimic(mimic_dict, word):
-    """Dado o dicionario imitador e a palavra inicial, imprime texto de 200 palavras."""
-    # +++ SUA SOLUÇÃO +++
     new_text = word.capitalize()
     capitalize_next_word = False
     word_init = word
